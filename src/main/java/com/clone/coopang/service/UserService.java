@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
     public UserApiResponse createUser(UserApiRequest request) {
         User user = User.builder()
-                .id(request.getId())
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .name(request.getName())
@@ -28,6 +28,7 @@ public class UserService {
         return response(newUser);
     }
 
+
     private UserApiResponse response(User user){
         UserApiResponse userApiResponse = UserApiResponse.builder()
                 .id(user.getId())
@@ -35,12 +36,10 @@ public class UserService {
                 .password(user.getPassword())
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .build();
 
         return userApiResponse;
-    }
-
-    private UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
     }
 }

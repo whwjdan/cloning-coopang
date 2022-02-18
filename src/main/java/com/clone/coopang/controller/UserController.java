@@ -6,8 +6,6 @@ import com.clone.coopang.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +17,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/user/join")
-    public void save(@RequestBody UserApiRequest userApiRequest){
+    public ResponseEntity<String> save(@RequestBody UserApiRequest userApiRequest){
 
-        userService.createUser(userApiRequest);
+        UserApiResponse response = userService.createUser(userApiRequest);
+        return new ResponseEntity<>(response.getPhoneNumber(), HttpStatus.OK);
     }
 
 }
