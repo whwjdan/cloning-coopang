@@ -1,9 +1,13 @@
 package com.clone.coopang.network.response;
 
-import lombok.Builder;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserApiResponse {
     private Long id;
@@ -30,17 +34,5 @@ public class UserApiResponse {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
-    }
-
-    @Builder
-    public UserApiResponse(Long id, String email, String password, String name, String phoneNumber, String address, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 }
