@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class UserApiResponse {
+
     private Long id;
 
     private String email;
