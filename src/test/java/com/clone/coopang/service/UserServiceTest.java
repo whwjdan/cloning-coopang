@@ -1,8 +1,8 @@
 package com.clone.coopang.service;
 
 import com.clone.coopang.domain.User;
-import com.clone.coopang.network.request.UserApiRequest;
-import com.clone.coopang.network.response.UserApiResponse;
+import com.clone.coopang.network.request.SignUpRequest;
+import com.clone.coopang.network.response.SignUpResponse;
 import com.clone.coopang.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -38,7 +35,7 @@ public class UserServiceTest {
             .build();
 
 
-    UserApiRequest request = UserApiRequest.builder()
+    SignUpRequest request = SignUpRequest.builder()
             .email(user.getEmail())
             .password(user.getPassword())
             .name(user.getName())
@@ -46,7 +43,7 @@ public class UserServiceTest {
             .createdAt(user.getCreatedAt())
             .build();
 
-    UserApiResponse response;
+    SignUpResponse response;
 
     @BeforeEach
     public void 사용자_객체_초기화(){

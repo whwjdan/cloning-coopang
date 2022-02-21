@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserApiResponse {
+public class SignUpResponse {
 
     private Long id;
 
@@ -28,7 +28,7 @@ public class UserApiResponse {
     private LocalDateTime updatedAt;
 
     @Builder
-    public UserApiResponse(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
+    public SignUpResponse(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;

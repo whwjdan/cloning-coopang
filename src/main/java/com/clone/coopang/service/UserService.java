@@ -1,11 +1,10 @@
 package com.clone.coopang.service;
 
 import com.clone.coopang.domain.User;
-import com.clone.coopang.network.request.UserApiRequest;
-import com.clone.coopang.network.response.UserApiResponse;
+import com.clone.coopang.network.request.SignUpRequest;
+import com.clone.coopang.network.response.SignUpResponse;
 import com.clone.coopang.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.DuplicateMappingException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,13 +15,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserApiResponse createUser(UserApiRequest request) {
+    public SignUpResponse createUser(SignUpRequest request) {
 
-        boolean duplicateEmail = isExistsEmail(request.getEmail());
+        verifyEmail(request.getEmail());
 
-        if (duplicateEmail) {
-            throw new RuntimeException("duplicated email" + request.getEmail());
-        }
         User user = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
@@ -35,12 +31,14 @@ public class UserService {
         return response(newUser);
     }
 
-    public boolean isExistsEmail(String email){
-        return userRepository.existsByEmail(email);
+    public void verifyEmail(String email){
+        if (userRepository.existsByEmail(email)) {
+            throw new RuntimeException("duplicated email" + email);
+        }
     }
 
-    private UserApiResponse response(User user){
-        UserApiResponse userApiResponse = UserApiResponse.builder()
+    private SignUpResponse response(User user){
+        SignUpResponse signUpResponse = SignUpResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .password(user.getPassword())
@@ -50,6 +48,6 @@ public class UserService {
                 .updatedAt(user.getUpdatedAt())
                 .build();
 
-        return userApiResponse;
+        return signUpResponse;
     }
 }

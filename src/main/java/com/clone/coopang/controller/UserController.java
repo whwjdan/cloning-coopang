@@ -1,7 +1,7 @@
 package com.clone.coopang.controller;
 
-import com.clone.coopang.network.request.UserApiRequest;
-import com.clone.coopang.network.response.UserApiResponse;
+import com.clone.coopang.network.request.SignUpRequest;
+import com.clone.coopang.network.response.SignUpResponse;
 import com.clone.coopang.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,18 +16,13 @@ public class UserController {
 
     @GetMapping("/user/exists/{email}")
     public ResponseEntity<Void> checkDuplicateEmail(@PathVariable String email){
-        boolean duplicateEmail = userService.isExistsEmail(email);
-        if (duplicateEmail) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+        userService.verifyEmail(email);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/user/join")
-    public ResponseEntity<UserApiResponse> save(@RequestBody UserApiRequest userApiRequest){
-
-        UserApiResponse response = userService.createUser(userApiRequest);
+    public ResponseEntity<SignUpResponse> save(@RequestBody SignUpRequest signUpRequest){
+        SignUpResponse response = userService.createUser(signUpRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
