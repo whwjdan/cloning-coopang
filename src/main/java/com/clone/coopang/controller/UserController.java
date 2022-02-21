@@ -6,9 +6,7 @@ import com.clone.coopang.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,11 +14,20 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/user/join")
-    public ResponseEntity<String> save(@RequestBody UserApiRequest userApiRequest){
-
-        UserApiResponse response = userService.createUser(userApiRequest);
-        return new ResponseEntity<>(response.getPhoneNumber(), HttpStatus.OK);
+    @GetMapping("/user/exists/{email}")
+    public ResponseEntity<Void> checkDuplicateEmail(@PathVariable String email){
+        boolean duplicateEmail = userService.isExistsEmail(email);
+        if (duplicateEmail) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
+    @PostMapping("/user/join")
+    public ResponseEntity<UserApiResponse> save(@RequestBody UserApiRequest userApiRequest){
+
+        UserApiResponse response = userService.createUser(userApiRequest);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 }

@@ -5,6 +5,7 @@ import com.clone.coopang.network.request.UserApiRequest;
 import com.clone.coopang.network.response.UserApiResponse;
 import com.clone.coopang.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.DuplicateMappingException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserApiResponse createUser(UserApiRequest request) {
+
+        boolean duplicateEmail = isExistsEmail(request.getEmail());
+
+        if (duplicateEmail) {
+            throw new RuntimeException("duplicated email" + request.getEmail());
+        }
         User user = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
@@ -28,6 +35,9 @@ public class UserService {
         return response(newUser);
     }
 
+    public boolean isExistsEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
 
     private UserApiResponse response(User user){
         UserApiResponse userApiResponse = UserApiResponse.builder()
