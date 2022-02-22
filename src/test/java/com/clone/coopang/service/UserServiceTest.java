@@ -34,7 +34,7 @@ public class UserServiceTest {
 
     SignUpRequest signUpRequest;
 
-    SignUpResponse signUpResponse;
+    SignUpResponse SignUpResponse;
 
     @BeforeEach
     void 사용자_객체_초기화(){
@@ -60,9 +60,9 @@ public class UserServiceTest {
         //given
         given(userRepository.save(any())).willReturn(user);
         //when
-        signUpResponse = userService.signUpUser(signUpRequest);
+        SignUpResponse = userService.saveUser(signUpRequest);
         //then
-        assertThat(signUpResponse.getEmail()).isEqualTo("test@test.com");
+        assertThat(SignUpResponse.getEmail()).isEqualTo("test@test.com");
         //verify
         then(userRepository).should(times(1)).save(any());
     }
@@ -87,7 +87,7 @@ public class UserServiceTest {
 
         //when, then
         assertThrows(EmailDuplicateException.class, () -> {
-            userService.signUpUser(signUpRequest);
+            userService.saveUser(signUpRequest);
         });
 
         //verify

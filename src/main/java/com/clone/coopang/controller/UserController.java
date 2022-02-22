@@ -15,14 +15,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/exists/{email}")
-    public ResponseEntity<Void> checkDuplicateEmail(@PathVariable String email){
+    public ResponseEntity<Void> checkDuplicateEmail(@PathVariable java.lang.String email){
         userService.verifyEmail(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/user/join")
     public ResponseEntity<SignUpResponse> save(@RequestBody SignUpRequest signUpRequest){
-        SignUpResponse response = userService.createUser(signUpRequest);
+        SignUpResponse response = userService.saveUser(signUpRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

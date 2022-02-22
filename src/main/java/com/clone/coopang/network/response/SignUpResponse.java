@@ -11,29 +11,34 @@ import java.time.LocalDateTime;
 @Builder
 public class SignUpResponse {
 
-    private Long id;
+    private java.lang.Long id;
 
-    private String email;
+    private java.lang.String email;
 
-    private String password;
+    private java.lang.String password;
 
-    private String name;
+    private java.lang.String name;
 
-    private String phoneNumber;
+    private java.lang.String phoneNumber;
 
-    private String address;
+    private java.lang.String address;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
     @Builder
-    public SignUpResponse(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
+    public SignUpResponse(java.lang.Long id, java.lang.String email, java.lang.String password, java.lang.String name, java.lang.String phoneNumber, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
+    }
+
+    @Builder
+    public SignUpResponse(String email) {
+        this.email = email;
     }
 }
