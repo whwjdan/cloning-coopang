@@ -23,11 +23,10 @@ ex) 빌더 패턴으로 객체 생성
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Entity
@@ -48,11 +47,12 @@ public class User {
 
     private String phoneNumber;
 
-    private String address;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> order = new ArrayList<>();
 
     @Builder
     public User(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
