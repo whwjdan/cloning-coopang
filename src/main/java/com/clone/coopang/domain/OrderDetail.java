@@ -17,8 +17,8 @@ public class OrderDetail {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
     @JsonIgnore
+    @JoinColumn(name = "order_id")
     private Order order;
 
     private Long productId;
