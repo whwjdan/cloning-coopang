@@ -1,9 +1,6 @@
 package com.clone.coopang.network.response;
 
-import com.clone.coopang.domain.Order;
 import com.clone.coopang.domain.OrderDetail;
-import com.clone.coopang.domain.User;
-import com.clone.coopang.network.request.OrderRequest;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +18,7 @@ public class OrderResponse {
 
     private Long user_id;
 
-    //private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
@@ -34,5 +31,4 @@ public class OrderResponse {
     private LocalDateTime updatedAt;
 
     private String address;
-
 }

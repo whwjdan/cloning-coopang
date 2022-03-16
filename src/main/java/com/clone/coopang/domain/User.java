@@ -51,7 +51,7 @@ public class User {
 
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> order = new ArrayList<>();
 
     @Builder
@@ -62,5 +62,12 @@ public class User {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
+    }
+
+    public static final User setUser(Long userId){
+        User user = User.builder()
+                .id(userId)
+                .build();
+        return user;
     }
 }

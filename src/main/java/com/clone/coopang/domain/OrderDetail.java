@@ -1,5 +1,6 @@
 package com.clone.coopang.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,8 +16,26 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
+    private Long productId;
+
+    private int productPrice;
+
+    private int deliveryPrice;
+
+    private int salePrice;
+
+    private int totalPrice;
+
+    private int paymentPrice;
+
+    private String thumbnail;
+
+    public void setOrder(Order order){
+        this.order = order;
+    }
 }

@@ -19,7 +19,7 @@ public class OrderRequest {
 
     private Long userId;
 
-    //private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
