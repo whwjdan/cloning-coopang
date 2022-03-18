@@ -18,9 +18,15 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    /**
+     *
+     * @param orderRequest
+     * @return
+     */
     @Transactional
     public OrderResponse order(OrderRequest orderRequest) {
         Order order = Order.createOrder(orderRequest);
+        // 추후 상품 등록 및 검색 등 기능 완성 후 트랜잭션 시점에 상품 재고 확인하는 validation 여기에 추가
         Order orderReturn = orderRepository.save(order);
         OrderResponse orderResponse = entityToResponse(orderReturn);
         return orderResponse;
