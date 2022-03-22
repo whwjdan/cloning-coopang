@@ -1,6 +1,7 @@
 package com.clone.coopang.network.request;
 
 import com.clone.coopang.domain.OrderDetail;
+import com.clone.coopang.domain.OrderStatus;
 import com.clone.coopang.domain.User;
 import lombok.*;
 
@@ -19,11 +20,11 @@ public class OrderRequest {
 
     private Long userId;
 
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails;
 
     private LocalDateTime orderDate;
 
-    private boolean orderStatus;
+    private OrderStatus orderStatus;
 
     private int amount;
 

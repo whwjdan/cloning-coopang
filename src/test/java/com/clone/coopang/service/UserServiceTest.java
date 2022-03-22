@@ -1,6 +1,7 @@
 package com.clone.coopang.service;
 
 import com.clone.coopang.domain.User;
+import com.clone.coopang.domain.UserRole;
 import com.clone.coopang.exception.EmailDuplicateException;
 import com.clone.coopang.network.request.SignUpRequest;
 import com.clone.coopang.network.response.SignUpResponse;
@@ -44,6 +45,7 @@ public class UserServiceTest {
                 .name("testName")
                 .phoneNumber("010-1111-0000")
                 .createdAt(LocalDateTime.now())
+                .userRole(UserRole.USER)
                 .build();
 
         signUpRequest = SignUpRequest.builder()
@@ -52,6 +54,7 @@ public class UserServiceTest {
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
                 .createdAt(user.getCreatedAt())
+                .userRole(user.getUserRole())
                 .build();
     }
 
@@ -63,6 +66,9 @@ public class UserServiceTest {
         SignUpResponse = userService.saveUser(signUpRequest);
         //then
         assertThat(SignUpResponse.getEmail()).isEqualTo("test@test.com");
+        assertThat(SignUpResponse.getUserRole()).isEqualTo(UserRole.USER);
+        assertThat(SignUpResponse.getUserRole()).isNotEqualTo(UserRole.ADMIN);
+        assertThat(SignUpResponse.getId()).isEqualTo(1L);
         //verify
         then(userRepository).should(times(1)).save(any());
     }

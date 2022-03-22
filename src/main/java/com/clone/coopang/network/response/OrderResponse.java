@@ -1,6 +1,7 @@
 package com.clone.coopang.network.response;
 
 import com.clone.coopang.domain.OrderDetail;
+import com.clone.coopang.domain.OrderStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class OrderResponse {
 
     private LocalDateTime orderDate;
 
-    private boolean orderStatus;
+    private OrderStatus orderStatus;
 
     private int amount;
 

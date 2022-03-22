@@ -1,5 +1,6 @@
 package com.clone.coopang.network.request;
 
+import com.clone.coopang.domain.UserRole;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,4 +27,6 @@ public class SignUpRequest {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private UserRole userRole;
 }

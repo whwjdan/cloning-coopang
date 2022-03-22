@@ -1,5 +1,6 @@
 package com.clone.coopang.network.response;
 
+import com.clone.coopang.domain.UserRole;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,24 +12,26 @@ import java.time.LocalDateTime;
 @Builder
 public class SignUpResponse {
 
-    private java.lang.Long id;
+    private Long id;
 
-    private java.lang.String email;
+    private String email;
 
-    private java.lang.String password;
+    private String password;
 
-    private java.lang.String name;
+    private String name;
 
-    private java.lang.String phoneNumber;
+    private String phoneNumber;
 
-    private java.lang.String address;
+    private String address;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
+    private UserRole userRole;
+
     @Builder
-    public SignUpResponse(java.lang.Long id, java.lang.String email, java.lang.String password, java.lang.String name, java.lang.String phoneNumber, LocalDateTime createdAt) {
+    public SignUpResponse(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -38,7 +41,8 @@ public class SignUpResponse {
     }
 
     @Builder
-    public SignUpResponse(String email) {
+    public SignUpResponse(String email, UserRole userRole) {
         this.email = email;
+        this.userRole = userRole;
     }
 }
