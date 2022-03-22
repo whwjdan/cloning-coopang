@@ -33,6 +33,13 @@ public class OrderDetail {
 
     private int paymentPrice;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_detail_status")
+    private OrderDetailStatus orderDetailStatus; //주문상태 [ORDER, CANCEL]
+
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
+
     private String thumbnail;
 
     public void setOrder(Order order){

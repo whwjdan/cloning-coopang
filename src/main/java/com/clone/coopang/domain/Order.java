@@ -30,8 +30,6 @@ public class Order {
 
     private LocalDateTime orderDate;
 
-    private boolean orderStatus;
-
     private int amount;
 
     private LocalDateTime createdAt;
@@ -39,6 +37,10 @@ public class Order {
     private LocalDateTime updatedAt;
 
     private String address;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL, PRTL_CNCL]
 
     public void addOrderItem(OrderDetail orderItem) {
         orderDetails.add(orderItem);
@@ -51,7 +53,7 @@ public class Order {
         Order order = Order.builder()
                 .user(user)
                 .orderDate(orderRequest.getOrderDate())
-                .orderStatus(orderRequest.isOrderStatus())
+                .orderStatus(orderRequest.getOrderStatus())
                 .createdAt(orderRequest.getCreatedAt())
                 .address(orderRequest.getAddress())
                 .amount(orderRequest.getAmount())

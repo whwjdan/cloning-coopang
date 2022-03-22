@@ -47,6 +47,7 @@ public class OrderService {
 
         for(Order orders: order){
             OrderResponse orderResponse = OrderResponse.builder()
+                    .id(orders.getId())
                     .orderDetails(orders.getOrderDetails())
                     .build();
             orderResponses.add(orderResponse);
@@ -59,10 +60,11 @@ public class OrderService {
                 .id(order.getId())
                 .user_id(order.getUser().getId())
                 .orderDate(order.getOrderDate())
-                .orderStatus(order.isOrderStatus())
+                .orderStatus(order.getOrderStatus())
                 .createdAt(order.getCreatedAt())
                 .address(order.getAddress())
                 .amount(order.getAmount())
+                .orderDetails(order.getOrderDetails())
                 .build();
         return orderResponse;
     }

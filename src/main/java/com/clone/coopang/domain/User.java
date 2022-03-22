@@ -51,18 +51,11 @@ public class User {
 
     private LocalDateTime updatedAt;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> order = new ArrayList<>();
-
-    @Builder
-    public User(Long id, String email, String password, String name, String phoneNumber, LocalDateTime createdAt) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.createdAt = createdAt;
-    }
 
     public static final User setUser(Long userId){
         User user = User.builder()

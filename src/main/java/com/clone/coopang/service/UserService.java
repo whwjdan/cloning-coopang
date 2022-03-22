@@ -27,11 +27,18 @@ public class UserService {
                 .name(signUpRequest.getName())
                 .phoneNumber(signUpRequest.getPhoneNumber())
                 .createdAt(LocalDateTime.now())
+                .userRole(signUpRequest.getUserRole())
                 .build();
 
         User signUpUser = userRepository.save(user);
 
-        return new SignUpResponse(signUpUser.getEmail());
+        SignUpResponse signUpResponse = SignUpResponse.builder()
+                .email(signUpUser.getEmail())
+                .userRole(signUpUser.getUserRole())
+                .id(signUpUser.getId())
+                .build();
+
+        return signUpResponse;
     }
 
     public void verifyEmail(String email){
