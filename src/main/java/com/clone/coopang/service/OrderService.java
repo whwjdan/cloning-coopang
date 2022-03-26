@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.clone.coopang.network.response.OrderResponse.ofOrderResponse;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -28,7 +30,7 @@ public class OrderService {
         Order order = Order.createOrder(orderRequest);
         // 추후 상품 등록 및 검색 등 기능 완성 후 트랜잭션 시점에 상품 재고 확인하는 validation 여기에 추가
         Order orderReturn = orderRepository.save(order);
-        OrderResponse orderResponse = entityToResponse(orderReturn);
+        OrderResponse orderResponse = ofOrderResponse(orderReturn);
         return orderResponse;
     }
 
@@ -41,7 +43,7 @@ public class OrderService {
     }
 
     public List<OrderResponse> findUserOrder(Long userId){
-        User user = User.setUser(userId);
+        User user = User.ofUser(userId);
         List<Order> order = orderRepository.findByUserId(user);
         List<OrderResponse> orderResponses = new ArrayList<>();
 
@@ -53,19 +55,5 @@ public class OrderService {
             orderResponses.add(orderResponse);
         }
         return orderResponses;
-    }
-
-    public OrderResponse entityToResponse(Order order){
-        OrderResponse orderResponse = OrderResponse.builder()
-                .id(order.getId())
-                .user_id(order.getUser().getId())
-                .orderDate(order.getOrderDate())
-                .orderStatus(order.getOrderStatus())
-                .createdAt(order.getCreatedAt())
-                .address(order.getAddress())
-                .amount(order.getAmount())
-                .orderDetails(order.getOrderDetails())
-                .build();
-        return orderResponse;
     }
 }

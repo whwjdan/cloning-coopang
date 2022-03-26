@@ -1,5 +1,6 @@
 package com.clone.coopang.network.response;
 
+import com.clone.coopang.domain.Order;
 import com.clone.coopang.domain.OrderDetail;
 import com.clone.coopang.domain.OrderStatus;
 import lombok.*;
@@ -32,4 +33,18 @@ public class OrderResponse {
     private LocalDateTime updatedAt;
 
     private String address;
+
+    public static OrderResponse ofOrderResponse(Order order){
+        OrderResponse orderResponse = OrderResponse.builder()
+                .id(order.getId())
+                .user_id(order.getUser().getId())
+                .orderDate(order.getOrderDate())
+                .orderStatus(order.getOrderStatus())
+                .createdAt(order.getCreatedAt())
+                .address(order.getAddress())
+                .amount(order.getAmount())
+                .orderDetails(order.getOrderDetails())
+                .build();
+        return orderResponse;
+    }
 }

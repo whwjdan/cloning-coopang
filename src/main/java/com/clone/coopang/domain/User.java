@@ -57,7 +57,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> order = new ArrayList<>();
 
-    public static final User setUser(Long userId){
+    public static User ofUser(Long userId){
         User user = User.builder()
                 .id(userId)
                 .build();

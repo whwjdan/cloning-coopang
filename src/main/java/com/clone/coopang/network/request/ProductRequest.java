@@ -32,7 +32,7 @@ public class ProductRequest {
 
     private int deliveryPrice;
 
-    public Product of(ProductRequest productRequest){
+    public static Product of(ProductRequest productRequest){
         Product product = Product.builder()
                 .productId(productRequest.getProductId())
                 .productPrice(productRequest.getProductPrice())
@@ -48,7 +48,7 @@ public class ProductRequest {
         return product;
     }
 
-    public Product ofUpdate(ProductRequest productRequest){
+    public static Product ofUpdate(ProductRequest productRequest){
         Product product = Product.builder()
                 .productId(productRequest.getProductId())
                 .productPrice(productRequest.getProductPrice())

@@ -1,7 +1,6 @@
 package com.clone.coopang.domain;
 
 import com.clone.coopang.network.request.OrderRequest;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,7 +47,7 @@ public class Order {
     }
 
     public static Order createOrder(OrderRequest orderRequest) {
-        User user = User.setUser(orderRequest.getUserId());
+        User user = User.ofUser(orderRequest.getUserId());
 
         Order order = Order.builder()
                 .user(user)
