@@ -41,7 +41,7 @@ public class OrderServiceTestBySpring extends CloningCoopangApplicationTests {
 
     @BeforeEach
     void 객체_초기화(){
-        user = User.setUser(1L);
+        user = User.ofUser(1L);
         order = Order.builder()
                 .id(1L)
                 .build();

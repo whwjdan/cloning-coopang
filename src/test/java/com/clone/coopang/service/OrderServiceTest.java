@@ -1,6 +1,5 @@
 package com.clone.coopang.service;
 
-import com.clone.coopang.CloningCoopangApplicationTests;
 import com.clone.coopang.domain.*;
 import com.clone.coopang.network.request.OrderRequest;
 import com.clone.coopang.network.response.OrderResponse;
@@ -12,16 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -45,7 +41,7 @@ public class OrderServiceTest{
 
     @BeforeEach
     void 객체_초기화(){
-        user = User.setUser(1L);
+        user = User.ofUser(1L);
         order = Order.builder()
                 .id(10L)
                 .build();
@@ -94,7 +90,7 @@ public class OrderServiceTest{
 
     @Test
     void order1(){
-        User user = User.setUser(1L);
+        User user = User.ofUser(1L);
     }
 
     /*
