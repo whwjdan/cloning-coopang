@@ -2,7 +2,6 @@ package com.clone.coopang.service;
 
 import com.clone.coopang.domain.Product;
 import com.clone.coopang.domain.ProductStatus;
-import com.clone.coopang.exception.ProductExistsException;
 import com.clone.coopang.exception.ProductNotExistsException;
 import com.clone.coopang.network.request.ProductRequest;
 import com.clone.coopang.repository.ProductRepository;
@@ -19,7 +18,6 @@ public class ProductService {
 
     public Product register(ProductRequest productRequest){
         Product product = productRequest.of(productRequest);
-        isExistsProduct(product);
         return productRepository.save(product);
     }
 
@@ -42,11 +40,5 @@ public class ProductService {
             productRepository.save(saveProduct);
         });
         return product.orElseThrow(() -> new ProductNotExistsException("삭제하려는 사움이 존재하지 않습니다. "));
-    }
-
-    public void isExistsProduct(Product product){
-        if(productRepository.findById(product.getProductId()).isPresent() ){
-            throw new ProductExistsException("이미 등록되어있는 상품입니다. " + product.getProductId());
-        }
     }
 }
