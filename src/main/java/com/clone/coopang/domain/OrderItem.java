@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @AllArgsConstructor
-public class OrderDetail {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +46,10 @@ public class OrderDetail {
         this.order = order;
     }
 
-    public static OrderDetail createOrderDetail(Order order){
-        OrderDetail orderDetail = OrderDetail.builder()
+    public static OrderItem createOrderItem(Order order){
+        OrderItem orderItem = OrderItem.builder()
                 .order(order)
                 .build();
-        return orderDetail;
+        return orderItem;
     }
 }

@@ -23,9 +23,8 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Setter
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
@@ -41,8 +40,4 @@ public class Order {
     @Column(name = "order_status")
     private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL, PRTL_CNCL]
 
-    public void addOrderDetail(OrderDetail orderDetail){
-        orderDetails.add(orderDetail);
-        orderDetail.setOrder(this);
-    }
 }

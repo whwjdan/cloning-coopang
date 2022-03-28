@@ -34,7 +34,7 @@ public class OrderServiceTest{
 
     User user;
     Order order;
-    OrderDetail orderDetail;
+    OrderItem orderItem;
     OrderRequest orderRequest;
     OrderResponse orderResponse;
     List<Order> findByUserOrders = new ArrayList<>();
@@ -46,21 +46,21 @@ public class OrderServiceTest{
                 .id(10L)
                 .build();
 
-        orderDetail = OrderDetail.builder()
+        orderItem = OrderItem.builder()
                 .id(1L)
                 .orderDetailStatus(OrderDetailStatus.ORDER)
                 .deliveryStatus(DeliveryStatus.DELIVERED)
                 .build();
 
-        OrderDetail orderDetail2 = OrderDetail.builder()
+        OrderItem orderItem2 = OrderItem.builder()
                 .id(2L)
                 .orderDetailStatus(OrderDetailStatus.CANCEL)
                 .deliveryStatus(DeliveryStatus.DELIVERED)
                 .build();
 
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        orderDetails.add(orderDetail);
-        orderDetails.add(orderDetail2);
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(orderItem);
+        orderItems.add(orderItem2);
 
         orderRequest = OrderRequest.builder()
                 .id(10L)
@@ -70,19 +70,19 @@ public class OrderServiceTest{
                 .amount(1)
                 .createdAt(LocalDateTime.now())
                 .address("testAddress")
-                .orderDetails(orderDetails)
+                .orderItems(orderItems)
                 .build();
 
         order = OrderService.createOrder(orderRequest);
 
         order = Order.builder()
                 .id(10L)
-                .orderDetails(orderDetails)
+                .orderItems(orderItems)
                 .build();
         findByUserOrders.add(order);
         order = Order.builder()
                 .id(11L)
-                .orderDetails(orderDetails)
+                .orderItems(orderItems)
                 .build();
         findByUserOrders.add(order);
 
@@ -122,13 +122,13 @@ public class OrderServiceTest{
         //when
         orderResponse = orderService.order(orderRequest);
         //then
-        assertThat(order.getOrderDetails().get(0).getOrderDetailStatus()).isEqualTo(OrderDetailStatus.ORDER);
+        assertThat(order.getOrderItems().get(0).getOrderDetailStatus()).isEqualTo(OrderDetailStatus.ORDER);
         assertThat(orderResponse.getUser_id()).isEqualTo(1L);
-        assertThat(orderResponse.getOrderDetails().get(0).getOrderDetailStatus()).isEqualTo(OrderDetailStatus.ORDER);
+        assertThat(orderResponse.getOrderItems().get(0).getOrderDetailStatus()).isEqualTo(OrderDetailStatus.ORDER);
         int idx = 0;
-        for(OrderDetail orderDetail : orderResponse.getOrderDetails()){
+        for(OrderItem orderItem : orderResponse.getOrderItems()){
 
-            assertThat(orderDetail.getOrderDetailStatus()).isEqualTo(orderRequest.getOrderDetails().get(idx).getOrderDetailStatus());
+            assertThat(orderItem.getOrderDetailStatus()).isEqualTo(orderRequest.getOrderItems().get(idx).getOrderDetailStatus());
             idx++;
         }
         //verify
@@ -144,10 +144,10 @@ public class OrderServiceTest{
         orderResponse = orderService.findOrder(1L);
         //then
         int idx = 0;
-        for(OrderDetail orderDetail : orderResponse.getOrderDetails()){
-            assertThat(orderDetail.getId()).isEqualTo(orderRequest.getOrderDetails().get(idx).getId());
-            assertThat(orderDetail.getOrderDetailStatus()).isEqualTo(orderRequest.getOrderDetails().get(idx).getOrderDetailStatus());
-            assertThat(orderDetail.getDeliveryStatus()).isEqualTo(orderRequest.getOrderDetails().get(idx).getDeliveryStatus());
+        for(OrderItem orderItem : orderResponse.getOrderItems()){
+            assertThat(orderItem.getId()).isEqualTo(orderRequest.getOrderItems().get(idx).getId());
+            assertThat(orderItem.getOrderDetailStatus()).isEqualTo(orderRequest.getOrderItems().get(idx).getOrderDetailStatus());
+            assertThat(orderItem.getDeliveryStatus()).isEqualTo(orderRequest.getOrderItems().get(idx).getDeliveryStatus());
             idx++;
         }
         //verify

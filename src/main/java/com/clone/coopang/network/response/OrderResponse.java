@@ -1,7 +1,7 @@
 package com.clone.coopang.network.response;
 
 import com.clone.coopang.domain.Order;
-import com.clone.coopang.domain.OrderDetail;
+import com.clone.coopang.domain.OrderItem;
 import com.clone.coopang.domain.OrderStatus;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class OrderResponse {
 
     private Long user_id;
 
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
@@ -43,7 +43,7 @@ public class OrderResponse {
                 .createdAt(order.getCreatedAt())
                 .address(order.getAddress())
                 .amount(order.getAmount())
-                .orderDetails(order.getOrderDetails())
+                .orderItems(order.getOrderItems())
                 .build();
         return orderResponse;
     }

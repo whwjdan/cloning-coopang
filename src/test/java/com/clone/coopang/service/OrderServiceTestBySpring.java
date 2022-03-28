@@ -35,7 +35,7 @@ public class OrderServiceTestBySpring extends CloningCoopangApplicationTests {
 
     User user;
     Order order;
-    OrderDetail orderDetail;
+    OrderItem orderItem;
     OrderRequest orderRequest;
     OrderResponse orderResponse;
 
@@ -56,23 +56,23 @@ public class OrderServiceTestBySpring extends CloningCoopangApplicationTests {
         User newUser = userRepository.save(testUser);
 
 
-        orderDetail = OrderDetail.builder()
+        orderItem = OrderItem.builder()
                 .orderDetailStatus(OrderDetailStatus.ORDER)
                 .deliveryStatus(DeliveryStatus.DELIVERED)
                 .build();
 
-        OrderDetail orderDetail2 = OrderDetail.builder()
+        OrderItem orderItem2 = OrderItem.builder()
                 .orderDetailStatus(OrderDetailStatus.ORDER)
                 .deliveryStatus(DeliveryStatus.DELIVERED)
                 .build();
 
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        orderDetails.add(orderDetail);
-        orderDetails.add(orderDetail2);
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(orderItem);
+        orderItems.add(orderItem2);
 
         System.out.println("jsdafjkslafjklasdjflksaj");
-        System.out.println(orderDetails.get(0));
-        System.out.println(orderDetails.get(1));
+        System.out.println(orderItems.get(0));
+        System.out.println(orderItems.get(1));
 
         orderRequest = OrderRequest.builder()
                 .id(1L)
@@ -82,7 +82,7 @@ public class OrderServiceTestBySpring extends CloningCoopangApplicationTests {
                 .amount(1)
                 .createdAt(LocalDateTime.now())
                 .address("testAddress")
-                .orderDetails(orderDetails)
+                .orderItems(orderItems)
                 .build();
     }
 
@@ -94,14 +94,14 @@ public class OrderServiceTestBySpring extends CloningCoopangApplicationTests {
         //when
         orderResponse = orderService.order(orderRequest);
         //then
-        for(OrderDetail orderDetail : orderResponse.getOrderDetails()){
-            System.out.println(orderDetail.getId());
-            System.out.println(orderDetail.getOrderDetailStatus());
-            System.out.println(orderDetail.getOrder().getAddress());
+        for(OrderItem orderItem : orderResponse.getOrderItems()){
+            System.out.println(orderItem.getId());
+            System.out.println(orderItem.getOrderDetailStatus());
+            System.out.println(orderItem.getOrder().getAddress());
         }
         List<OrderResponse> orderResponse2 = orderService.findUserOrder(1L);
-        System.out.println(orderResponse2.get(0).getOrderDetails().get(0).getId());
-        System.out.println(orderResponse2.get(0).getOrderDetails().get(1).getId());
+        System.out.println(orderResponse2.get(0).getOrderItems().get(0).getId());
+        System.out.println(orderResponse2.get(0).getOrderItems().get(1).getId());
     }
 
     @Test

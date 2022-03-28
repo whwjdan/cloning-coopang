@@ -1,7 +1,7 @@
 package com.clone.coopang.service;
 
 import com.clone.coopang.domain.Order;
-import com.clone.coopang.domain.OrderDetail;
+import com.clone.coopang.domain.OrderItem;
 import com.clone.coopang.domain.User;
 import com.clone.coopang.network.request.OrderRequest;
 import com.clone.coopang.network.response.OrderResponse;
@@ -21,11 +21,6 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    /**
-     *
-     * @param orderRequest
-     * @return
-     */
     public static Order createOrder(OrderRequest orderRequest){
         User user = User.ofUser(orderRequest.getUserId());
         Order order = Order.builder()
@@ -35,13 +30,18 @@ public class OrderService {
                 .createdAt(orderRequest.getCreatedAt())
                 .address(orderRequest.getAddress())
                 .amount(orderRequest.getAmount())
-                .orderDetails(new ArrayList<>())
+                .orderItems(new ArrayList<>())
                 .build();
 
-        for(OrderDetail ods : orderRequest.getOrderDetails()){
-            order.addOrderDetail(ods);
+        for(OrderItem orderItem : orderRequest.getOrderItems()){
+            addOrderItem(order, orderItem);
         }
         return order;
+    }
+
+    private static void addOrderItem(Order order, OrderItem orderItem) {
+        order.getOrderItems().add(orderItem);
+        orderItem.setOrder(order);
     }
 
     @Transactional
@@ -56,7 +56,7 @@ public class OrderService {
     public OrderResponse findOrder(Long orderId){
         Order order = orderRepository.findByOrderId(orderId);
         OrderResponse orderResponse = OrderResponse.builder()
-                .orderDetails(order.getOrderDetails())
+                .orderItems(order.getOrderItems())
                 .build();
         return orderResponse;
     }
@@ -69,7 +69,7 @@ public class OrderService {
         for(Order orders: order){
             OrderResponse orderResponse = OrderResponse.builder()
                     .id(orders.getId())
-                    .orderDetails(orders.getOrderDetails())
+                    .orderItems(orders.getOrderItems())
                     .build();
             orderResponses.add(orderResponse);
         }
