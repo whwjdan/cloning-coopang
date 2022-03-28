@@ -73,7 +73,7 @@ public class OrderServiceTest{
                 .orderItems(orderItems)
                 .build();
 
-        order = OrderService.createOrder(orderRequest);
+        //order = OrderService.createOrder(orderRequest);
 
         order = Order.builder()
                 .id(10L)

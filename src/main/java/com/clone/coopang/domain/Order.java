@@ -36,6 +36,7 @@ public class Order {
 
     private String address;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL, PRTL_CNCL]

@@ -22,6 +22,12 @@ public class OrderController {
         return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
     }
 
+    @PostMapping("/order/cancel")
+    public ResponseEntity<OrderResponse> cancel(@RequestBody OrderRequest orderRequest) {
+        orderService.cancelOrder(orderRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/order/user/{userId}")
     public ResponseEntity<OrderResponse> userOrder(@PathVariable("userId") Long userId){
         List<OrderResponse> orderResponse = orderService.findUserOrder(userId);
