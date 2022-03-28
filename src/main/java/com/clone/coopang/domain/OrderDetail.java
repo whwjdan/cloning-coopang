@@ -16,7 +16,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "order_id")
     private Order order;
@@ -44,5 +44,12 @@ public class OrderDetail {
 
     public void setOrder(Order order){
         this.order = order;
+    }
+
+    public static OrderDetail createOrderDetail(Order order){
+        OrderDetail orderDetail = OrderDetail.builder()
+                .order(order)
+                .build();
+        return orderDetail;
     }
 }

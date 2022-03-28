@@ -1,6 +1,7 @@
 package com.clone.coopang.service;
 
 import com.clone.coopang.domain.Order;
+import com.clone.coopang.domain.OrderDetail;
 import com.clone.coopang.domain.User;
 import com.clone.coopang.network.request.OrderRequest;
 import com.clone.coopang.network.response.OrderResponse;
@@ -25,11 +26,29 @@ public class OrderService {
      * @param orderRequest
      * @return
      */
+    public static Order createOrder(OrderRequest orderRequest){
+        User user = User.ofUser(orderRequest.getUserId());
+        Order order = Order.builder()
+                .user(user)
+                .orderDate(orderRequest.getOrderDate())
+                .orderStatus(orderRequest.getOrderStatus())
+                .createdAt(orderRequest.getCreatedAt())
+                .address(orderRequest.getAddress())
+                .amount(orderRequest.getAmount())
+                .orderDetails(new ArrayList<>())
+                .build();
+
+        for(OrderDetail ods : orderRequest.getOrderDetails()){
+            order.addOrderDetail(ods);
+        }
+        return order;
+    }
+
     @Transactional
     public OrderResponse order(OrderRequest orderRequest) {
-        Order order = Order.createOrder(orderRequest);
+
         // 추후 상품 등록 및 검색 등 기능 완성 후 트랜잭션 시점에 상품 재고 확인하는 validation 여기에 추가
-        Order orderReturn = orderRepository.save(order);
+        Order orderReturn = orderRepository.save(createOrder(orderRequest));
         OrderResponse orderResponse = ofOrderResponse(orderReturn);
         return orderResponse;
     }
