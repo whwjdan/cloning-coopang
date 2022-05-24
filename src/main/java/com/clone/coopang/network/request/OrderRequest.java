@@ -1,12 +1,10 @@
 package com.clone.coopang.network.request;
 
-import com.clone.coopang.domain.OrderDetail;
+import com.clone.coopang.domain.OrderItem;
 import com.clone.coopang.domain.OrderStatus;
-import com.clone.coopang.domain.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,7 +18,7 @@ public class OrderRequest {
 
     private Long userId;
 
-    private List<OrderDetail> orderDetails;
+    private List<OrderItem> orderItems;
 
     private LocalDateTime orderDate;
 

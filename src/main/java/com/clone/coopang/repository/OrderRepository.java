@@ -14,12 +14,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select distinct o from Order o " +
             "join fetch o.user u " +
-            "join fetch o.orderDetails od " +
+            "join fetch o.orderItems od " +
             "where o.user = :user")
     List<Order> findByUserId(@Param("user") User user);
 
     @Query(value = "select distinct o from Order o " +
-            "join fetch o.orderDetails od " +
+            "join fetch o.orderItems od " +
             "where o.id = :orderId")
     Order findByOrderId(@Param("orderId") Long orderId);
 }

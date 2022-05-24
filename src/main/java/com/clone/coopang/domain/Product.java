@@ -52,4 +52,34 @@ public class Product {
 
         return returnProduct;
     }
+
+    public Product updateStock(Product product, boolean isStockPlus){
+        Product returnProduct;
+        if(isStockPlus){
+            returnProduct = Product.builder()
+                    .productPrice(product.getProductPrice())
+                    .productName(product.getProductName())
+                    .productScore(product.getProductScore())
+                    .productStock(product.getProductStock()+1)
+                    .deliveryPrice(product.getDeliveryPrice())
+                    .productId(product.getProductId())
+                    .rocket(product.getRocket())
+                    .userId(product.getUserId())
+                    .productStatus(product.getProductStatus())
+                    .build();
+        } else {
+            returnProduct = Product.builder()
+                    .productPrice(product.getProductPrice())
+                    .productName(product.getProductName())
+                    .productScore(product.getProductScore())
+                    .productStock(product.getProductStock()-1)
+                    .deliveryPrice(product.getDeliveryPrice())
+                    .productId(product.getProductId())
+                    .rocket(product.getRocket())
+                    .userId(product.getUserId())
+                    .productStatus(product.getProductStatus())
+                    .build();
+        }
+        return returnProduct;
+    }
 }

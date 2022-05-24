@@ -10,13 +10,13 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @AllArgsConstructor
-public class OrderDetail {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "order_id")
     private Order order;
@@ -33,6 +33,7 @@ public class OrderDetail {
 
     private int paymentPrice;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "order_detail_status")
     private OrderDetailStatus orderDetailStatus; //주문상태 [ORDER, CANCEL]
@@ -44,5 +45,12 @@ public class OrderDetail {
 
     public void setOrder(Order order){
         this.order = order;
+    }
+
+    public static OrderItem createOrderItem(Order order){
+        OrderItem orderItem = OrderItem.builder()
+                .order(order)
+                .build();
+        return orderItem;
     }
 }
