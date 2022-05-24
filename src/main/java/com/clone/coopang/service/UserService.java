@@ -33,7 +33,6 @@ public class UserService {
         User signUpUser = userRepository.save(user);
 
         SignUpResponse signUpResponse = SignUpResponse.builder()
-                .email(signUpUser.getEmail())
                 .userRole(signUpUser.getUserRole())
                 .id(signUpUser.getId())
                 .build();

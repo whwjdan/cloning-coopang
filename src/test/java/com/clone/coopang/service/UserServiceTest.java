@@ -65,7 +65,6 @@ public class UserServiceTest {
         //when
         SignUpResponse = userService.saveUser(signUpRequest);
         //then
-        assertThat(SignUpResponse.getEmail()).isEqualTo("test@test.com");
         assertThat(SignUpResponse.getUserRole()).isEqualTo(UserRole.USER);
         assertThat(SignUpResponse.getUserRole()).isNotEqualTo(UserRole.ADMIN);
         assertThat(SignUpResponse.getId()).isEqualTo(1L);
