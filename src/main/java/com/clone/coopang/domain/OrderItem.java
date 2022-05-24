@@ -33,6 +33,7 @@ public class OrderItem {
 
     private int paymentPrice;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "order_detail_status")
     private OrderDetailStatus orderDetailStatus; //주문상태 [ORDER, CANCEL]

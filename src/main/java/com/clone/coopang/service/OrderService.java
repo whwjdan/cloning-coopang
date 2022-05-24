@@ -43,6 +43,7 @@ public class OrderService {
 
     private static void addOrderItem(Order order, OrderItem orderItem) {
         order.getOrderItems().add(orderItem);
+        orderItem.setOrderDetailStatus(OrderDetailStatus.ORDER);
         orderItem.setOrder(order);
     }
 
@@ -58,16 +59,20 @@ public class OrderService {
         return orderResponse;
     }
 
+    // 전체주문삭제
+    // todo 개별주문삭제 따로만들기
+    // todo addProductStock validation 수정하기
     @Transactional
     public void cancelOrder(OrderRequest orderRequest){
         Optional<Order> order = orderRepository.findById(orderRequest.getId());
         order.ifPresent(selectOrder -> {
-            System.out.println("00000");
             selectOrder.setOrderStatus(OrderStatus.CANCEL);
 
             for (OrderItem orderItem : selectOrder.getOrderItems()){
                 addProductStock(orderItem);
+                orderItem.setOrderDetailStatus(OrderDetailStatus.CANCEL);
             }
+            orderRepository.save(selectOrder);
         });
     }
 
@@ -108,6 +113,9 @@ public class OrderService {
         product.ifPresent(selectProduct -> {
             Product product1 = selectProduct.updateStock(selectProduct, true);
             productRepository.save(product1);
+            if(orderItem.getOrderDetailStatus() == OrderDetailStatus.CANCEL){
+                throw new RuntimeException("aaaa");
+            }
         });
         return product.orElseThrow(() -> new ProductNotExistsException("상품이 존재하지 않습니다."));
     }
